@@ -1,0 +1,15 @@
+commonLabels:
+  app: color
+
+resources:
+- deployment.yaml
+- service.yaml
+
+configMapGenerator:
+- name: color-config
+  literals:
+  - PORT="8000"
+  - ADMIN_PORT="9000"
+  - GRACEFUL_SHUTDOWN_TIMEOUT="30s"
+  - RANDOM_SERVICE_BASE_URL="http://random"
+

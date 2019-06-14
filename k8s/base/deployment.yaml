@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: color
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    spec:
+      containers:
+      - name: color
+        image: 920858517028.dkr.ecr.us-east-1.amazonaws.com/color
+        imagePullPolicy: Always
+        ports:
+        - name: http-port
+          containerPort: 8000
+        - name: admin-port
+          containerPort: 9000
+        livenessProbe:
+          httpGet:
+            path: /live
+            port: admin-port
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: admin-port
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          failureThreshold: 1
+        envFrom:
+          - configMapRef:
+              name: color-config

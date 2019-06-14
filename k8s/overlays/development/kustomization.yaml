@@ -1,0 +1,14 @@
+namePrefix: dev-
+
+commonLabels:
+  variant: dev
+
+bases:
+- ../../base
+
+# need strategic merge to overlay configmap properly without replacing whole param list
+patchesStrategicMerge:
+- replica_count.yaml
+- cpu_count.yaml
+- image_pull_policy.yaml
+- configmap.yaml

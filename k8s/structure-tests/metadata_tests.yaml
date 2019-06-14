@@ -1,0 +1,14 @@
+schemaVersion: "2.0.0"
+
+# This is just an example. We might not really care about testing any of this.
+metadataTest:
+  env:
+    - key: PORT
+      value: 8000
+    - key: ADMIN_PORT
+      value: 9000
+  exposedPorts: ["8000", "9000"]
+  entrypoint: ["/go/bin/color"]
+  cmd: []
+
+

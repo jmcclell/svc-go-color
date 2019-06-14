@@ -1,0 +1,7 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: color
+spec:
+  replicas: 1

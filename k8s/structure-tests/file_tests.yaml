@@ -1,0 +1,7 @@
+schemaVersion: "2.0.0"
+
+fileExistenceTests:
+  - name: 'color'
+    path: '/go/bin/color'
+    shouldExist: true
+
