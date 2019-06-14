@@ -80,6 +80,7 @@ func initConfig() {
 }
 
 func initRandomService() {
+	log.Printf("Initializing external random service at url: %s", config.RandomServiceBaseUrl)
 	randomSvc = RandomService{BaseUrl: config.RandomServiceBaseUrl, Client: http.DefaultClient}
 }
 
@@ -130,6 +131,7 @@ func randomColorHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(vals) != 3 {
+		log.Printf("Random service returned invalid data. Needed %d random numbers but got %d instead.", 3, len(vals))
 		ErrorResponse{Error: "Invalid response from random service: wrong number of random  numbers received."}.render(w, http.StatusBadRequest)
 		return
 	}
@@ -147,6 +149,7 @@ type RandomService struct {
 func (s RandomService) next(min, max, num int) ([]int, error) {
 	resp, err := s.Client.Get(fmt.Sprintf("%s/next?min=%d&max=%d&num=%d", s.BaseUrl, min, max, num))
 	if err != nil {
+		log.Printf("Error contacting random service: %s", err.Error())
 		return nil, err
 	}
 	defer resp.Body.Close()
